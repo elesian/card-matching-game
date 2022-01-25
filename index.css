@@ -1,4 +1,10 @@
 /** @format */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
   background-image: url('./images/pokeballs.jpeg');
   background-color: #cccccc;
@@ -9,6 +15,7 @@ body {
   grid-template-columns: repeat(4, auto);
   grid-template-rows: repeat(4, 150);
   justify-content: center;
+  align-items: center;
 }
 
 .grid-container-1 > div {
@@ -45,6 +52,7 @@ h2 {
 .grid-container-2 {
   display: grid;
   grid-template-columns: repeat(3, auto);
+  align-items: stretch;
 }
 
 #grid-bottom-1,
@@ -56,6 +64,11 @@ h2 {
   font-size: 20px;
   text-align: center;
   border-radius: 3px;
+}
+
+#reset-button {
+  font-size: 20px;
+  justify-content: space-around;
 }
 
 article {

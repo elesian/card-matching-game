@@ -77,8 +77,19 @@
 
           <section>
             <div class="grid-container-2">
-              <div id="grid-bottom-1"><h2>Total Played Time 00:00:00</h2></div>
-              <div id="grid-bottom-2"><h2>RESTART GAME</h2></div>
+              <div id="grid-bottom-1">
+                <h2>
+                  Total Played Time :
+                  <span id="base-timer-label" class="base-timer__label">
+                    00:00
+                  </span>
+                </h2>
+              </div>
+              <div id="grid-bottom-2">
+                <button id="reset-button" onclick="initialiseGame()">
+                  START GAME
+                </button>
+              </div>
               <div id="grid-bottom-3"><h2>Total Moves : 0</h2></div>
             </div>
           </section>

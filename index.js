@@ -32,6 +32,9 @@
  * @format
  */
 
+let timePassed = 0;
+let reset = false;
+
 function test(event) {
   var banner = document.getElementById(`${event}`).children[0];
   console.log(banner.src);
@@ -39,4 +42,50 @@ function test(event) {
     console.log('true');
     banner.src = './images/arbok.jpeg';
   } else banner.src = 'http://127.0.0.1:5500/images/blank.jpeg';
+}
+
+function initialiseGame() {
+  if (document.getElementById('reset-button').innerText === 'START GAME') {
+    setTimer((reset = false));
+  } else {
+    setTimer((reset = true));
+  }
+}
+
+function formatTime(time) {
+  // The largest round integer less than or equal to the result of time divided being by 60.
+  const minutes = Math.floor(time / 60);
+
+  // Seconds are the remainder of the time divided by 60 (modulus operator)
+  let seconds = time % 60;
+
+  // If the value of seconds is less than 10, then display seconds with a leading zero
+  if (seconds < 10) {
+    seconds = `0${seconds}`;
+  }
+
+  // The output in MM:SS format
+  return `${minutes}:${seconds}`;
+}
+
+function setTimer(reset) {
+  for (var i = 1; i < 99999; i++) window.clearInterval(i);
+  timePassed = 0;
+
+  if (reset === false) {
+    document.getElementById('reset-button').innerHTML = 'END GAME';
+
+    let interval = setInterval(() => {
+      // The amount of time passed increments by one
+      timePassed = timePassed + 1;
+      // The time left label is updated
+      document.getElementById('base-timer-label').innerHTML =
+        formatTime(timePassed);
+    }, 1000);
+  } else {
+    reset = false;
+    document.getElementById('reset-button').innerText = 'START GAME';
+    document.getElementById('base-timer-label').innerHTML =
+      formatTime(timePassed);
+  }
 }
