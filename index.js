@@ -40,7 +40,7 @@ let PokemonCards = [
   'dragonair.jpeg',
   'jigglypuff.jpeg',
   'lickitung.jpeg',
-  'memowmth.jpeg',
+  'memowth.jpeg',
   'oddish.jpeg',
   'rattata.jpeg',
   'sandshrew.jpeg',
@@ -48,7 +48,7 @@ let PokemonCards = [
   'dragonair.jpeg',
   'jigglypuff.jpeg',
   'lickitung.jpeg',
-  'memowmth.jpeg',
+  'memowth.jpeg',
   'oddish.jpeg',
   'rattata.jpeg',
   'sandshrew.jpeg',
@@ -57,12 +57,17 @@ let PokemonCards = [
 let gridImages = {};
 
 function clickPokemon(event) {
-  let cardId = document.getElementById(`${event}`).children[0];
-  console.log(cardId.src);
-  if (cardId.src === 'http://127.0.0.1:5500/images/blank.jpeg') {
-    console.log('true');
-    cardId.src = './images/arbok.jpeg';
-  } else cardId.src = 'http://127.0.0.1:5500/images/blank.jpeg';
+  const card = document.getElementById(`${event}`);
+  const cardId = card.id;
+  const child = card.children[0];
+  let currentIndex = PokemonCards[gridImages[`${cardId}`]];
+  console.log(currentIndex);
+
+  if (Object.keys(gridImages).length !== 0) {
+    if (child.src === 'http://127.0.0.1:5500/images/blank.jpeg') {
+      child.src = `./images/${currentIndex}`;
+    } else child.src = 'http://127.0.0.1:5500/images/blank.jpeg';
+  }
 }
 
 function initialiseGame() {
@@ -72,7 +77,6 @@ function initialiseGame() {
   resetCards();
   //assign each grid square to a pokemon
   assignGridImages();
-  console.log(gridImages);
 
   if (document.getElementById('reset-button').innerText === 'START GAME') {
     setTimer((reset = false));
