@@ -81,12 +81,16 @@ function clickPokemon(event) {
         alert(
           `You have WON in ${totalMoves} moves and a time of ${finishedTime}`
         );
+        document.getElementById('reset-button').innerText === 'START GAME';
       }, 200);
     }
   }
 }
 
 function initialiseGame() {
+  totalMoves = 0;
+  currentTwoCards = [];
+  completedPairs = [];
   //randomise Cards
   RandomiseCards = RandomCards(0, 15);
   //reset all to blank
