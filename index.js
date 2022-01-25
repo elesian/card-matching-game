@@ -146,7 +146,7 @@
    const children = document.getElementsByTagName('img');
  
    for (let i = 0; i < children.length; i++) {
-     children[i].src = '/images/blank.jpeg';
+     children[i].src = './images/blank.jpeg';
      children[i].width = 145;
      children[i].height = 145;
    }
