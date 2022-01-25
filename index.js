@@ -31,12 +31,9 @@
  * @format
  */
 
-let totalMoves = 0;
-let totalMatches = 0;
 let timePassed = 0;
 let reset = false;
 let currentTwoCards = [];
-let completedPairs = [];
 let RandomiseCards = new Array(16);
 let PokemonCards = [
   'arbok.jpeg',
@@ -64,7 +61,7 @@ function clickPokemon(event) {
   const cardId = card.id;
   const child = card.children[0];
   let currentIndex = PokemonCards[gridImages[`${cardId}`]];
-  console.log(timePassed);
+  console.log(currentIndex);
 
   if (Object.keys(gridImages).length !== 0) {
     if (child.src === './images/blank.jpeg') {
