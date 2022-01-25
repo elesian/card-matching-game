@@ -31,167 +31,168 @@
  * @format
  */
 
-let totalMoves = 0;
-let totalMatches = 0;
-let timePassed = 0;
-let reset = false;
-let currentTwoCards = [];
-let completedPairs = [];
-let RandomiseCards = new Array(16);
-let PokemonCards = [
-  'arbok.jpeg',
-  'dragonair.jpeg',
-  'jigglypuff.jpeg',
-  'lickitung.jpeg',
-  'memowth.jpeg',
-  'oddish.jpeg',
-  'rattata.jpeg',
-  'sandshrew.jpeg',
-  'arbok.jpeg',
-  'dragonair.jpeg',
-  'jigglypuff.jpeg',
-  'lickitung.jpeg',
-  'memowth.jpeg',
-  'oddish.jpeg',
-  'rattata.jpeg',
-  'sandshrew.jpeg',
-];
-
-let gridImages = {};
-
-function clickPokemon(event) {
-  const card = document.getElementById(`${event}`);
-  const cardId = card.id;
-  const child = card.children[0];
-  let currentIndex = PokemonCards[gridImages[`${cardId}`]];
-  console.log(card);
-
-  if (Object.keys(gridImages).length !== 0) {
-    if (child.src.includes('blank.jpeg') === true) {
-      child.src = `./images/${currentIndex}`;
-    }
-
-    //test
-    //do pairs match?
-    let isMatch = matchingPair(card);
-    if (isMatch && completedPairs.length === 16) {
-      const finishedTime = formatTime(timePassed);
-
-      setTimeout(() => {
-        alert(
-          `You have WON in ${totalMoves} moves and a time of ${finishedTime}`
-        );
-      }, 200);
-    }
-  }
-}
-
-function initialiseGame() {
-  //randomise Cards
-  RandomiseCards = RandomCards(0, 15);
-  //reset all to blank
-  resetCards();
-  //assign each grid square to a pokemon
-  assignGridImages();
-
-  if (document.getElementById('reset-button').innerText === 'START GAME') {
-    setTimer((reset = false));
-  } else {
-    setTimer((reset = true));
-  }
-}
-
-function formatTime(time) {
-  const minutes = Math.floor(time / 60);
-  let seconds = time % 60;
-  if (seconds < 10) {
-    seconds = `0${seconds}`;
-  }
-  return `${minutes}:${seconds}`;
-}
-
-function setTimer(reset) {
-  for (var i = 1; i < 99999; i++) window.clearInterval(i);
-  timePassed = 0;
-
-  if (reset === false) {
-    document.getElementById('reset-button').innerHTML = 'END GAME';
-    let interval = setInterval(() => {
-      // The amount of time passed increments by one
-      timePassed = timePassed + 1;
-      // The time left label is updated
-      document.getElementById('base-timer-label').innerHTML =
-        formatTime(timePassed);
-    }, 1000);
-  } else {
-    reset = false;
-    document.getElementById('reset-button').innerText = 'START GAME';
-    document.getElementById('base-timer-label').innerHTML =
-      formatTime(timePassed);
-  }
-}
-
-const RandomCards = (min, max) => {
-  const randomNumbers = new Set();
-  const range = max - min + 1;
-
-  while (randomNumbers.size < range) {
-    randomNumbers.add(~~(Math.random() * range));
-  }
-
-  return [...randomNumbers];
-};
-
-function resetCards() {
-  const children = document.getElementsByTagName('img');
-
-  for (let i = 0; i < children.length; i++) {
-    children[i].src = './images/blank.jpeg';
-    children[i].width = 145;
-    children[i].height = 145;
-  }
-}
-
-function assignGridImages() {
-  const images = document.getElementsByTagName('img');
-  for (let i = 0; i < images.length; i++) {
-    gridImages[`grid-item-${i + 1}`] = RandomiseCards[i];
-  }
-}
-
-function matchingPair(card) {
-  if (completedPairs.includes(card.id)) {
-    return false;
-  }
-
-  if (currentTwoCards.length === 0) {
-    currentTwoCards.push(card);
-    console.log(currentTwoCards);
-  }
-
-  if (currentTwoCards.length === 1 && currentTwoCards[0].id !== card.id) {
-    currentTwoCards.push(card);
-    console.log(currentTwoCards);
-  }
-
-  if (currentTwoCards.length === 2) {
-    totalMoves++;
-    totalMatches++;
-    document.getElementById('total-moves').innerText = totalMoves;
-    console.log(currentTwoCards[0].id);
-    if (
-      currentTwoCards[0].children[0].src === currentTwoCards[1].children[0].src
-    ) {
-      completedPairs.push(currentTwoCards[0].id, currentTwoCards[1].id);
-      console.log(completedPairs);
-      currentTwoCards = [];
-    } else {
-      setTimeout(() => {
-        currentTwoCards[0].children[0].src = './images/blank.jpeg';
-        currentTwoCards[1].children[0].src = './images/blank.jpeg';
-        currentTwoCards = [];
-      }, 200);
-    }
-  }
-  return true;
-}
+ let totalMoves = 0;
+ let totalMatches = 0;
+ let timePassed = 0;
+ let reset = false;
+ let currentTwoCards = [];
+ let completedPairs = [];
+ let RandomiseCards = new Array(16);
+ let PokemonCards = [
+   'arbok.jpeg',
+   'dragonair.jpeg',
+   'jigglypuff.jpeg',
+   'lickitung.jpeg',
+   'memowth.jpeg',
+   'oddish.jpeg',
+   'rattata.jpeg',
+   'sandshrew.jpeg',
+   'arbok.jpeg',
+   'dragonair.jpeg',
+   'jigglypuff.jpeg',
+   'lickitung.jpeg',
+   'memowth.jpeg',
+   'oddish.jpeg',
+   'rattata.jpeg',
+   'sandshrew.jpeg',
+ ];
+ 
+ let gridImages = {};
+ 
+ function clickPokemon(event) {
+   const card = document.getElementById(`${event}`);
+   const cardId = card.id;
+   const child = card.children[0];
+   let currentIndex = PokemonCards[gridImages[`${cardId}`]];
+   console.log(timePassed);
+ 
+   if (Object.keys(gridImages).length !== 0) {
+     if (child.src.includes('blank.jpeg') === true) {
+       child.src = `./images/${currentIndex}`;
+     }
+ 
+     //test
+     //do pairs match?
+     let isMatch = matchingPair(card);
+     if (isMatch && completedPairs.length === 16) {
+       const finishedTime = formatTime(timePassed);
+ 
+       setTimeout(() => {
+         alert(
+           `You have WON in ${totalMoves} moves and a time of ${finishedTime}`
+         );
+       }, 200);
+     }
+   }
+ }
+ 
+ function initialiseGame() {
+   //randomise Cards
+   RandomiseCards = RandomCards(0, 15);
+   //reset all to blank
+   resetCards();
+   //assign each grid square to a pokemon
+   assignGridImages();
+ 
+   if (document.getElementById('reset-button').innerText === 'START GAME') {
+     setTimer((reset = false));
+   } else {
+     setTimer((reset = true));
+   }
+ }
+ 
+ function formatTime(time) {
+   const minutes = Math.floor(time / 60);
+   let seconds = time % 60;
+   if (seconds < 10) {
+     seconds = `0${seconds}`;
+   }
+   return `${minutes}:${seconds}`;
+ }
+ 
+ function setTimer(reset) {
+   for (var i = 1; i < 99999; i++) window.clearInterval(i);
+   timePassed = 0;
+ 
+   if (reset === false) {
+     document.getElementById('reset-button').innerHTML = 'END GAME';
+     let interval = setInterval(() => {
+       // The amount of time passed increments by one
+       timePassed = timePassed + 1;
+       // The time left label is updated
+       document.getElementById('base-timer-label').innerHTML =
+         formatTime(timePassed);
+     }, 1000);
+   } else {
+     reset = false;
+     document.getElementById('reset-button').innerText = 'START GAME';
+     document.getElementById('base-timer-label').innerHTML =
+       formatTime(timePassed);
+   }
+ }
+ 
+ const RandomCards = (min, max) => {
+   const randomNumbers = new Set();
+   const range = max - min + 1;
+ 
+   while (randomNumbers.size < range) {
+     randomNumbers.add(~~(Math.random() * range));
+   }
+ 
+   return [...randomNumbers];
+ };
+ 
+ function resetCards() {
+   const children = document.getElementsByTagName('img');
+ 
+   for (let i = 0; i < children.length; i++) {
+     children[i].src = '/images/blank.jpeg';
+     children[i].width = 145;
+     children[i].height = 145;
+   }
+ }
+ 
+ function assignGridImages() {
+   const images = document.getElementsByTagName('img');
+   for (let i = 0; i < images.length; i++) {
+     gridImages[`grid-item-${i + 1}`] = RandomiseCards[i];
+   }
+ }
+ 
+ function matchingPair(card) {
+   if (completedPairs.includes(card.id)) {
+     return false;
+   }
+ 
+   if (currentTwoCards.length === 0) {
+     currentTwoCards.push(card);
+     console.log(currentTwoCards);
+   }
+ 
+   if (currentTwoCards.length === 1 && currentTwoCards[0].id !== card.id) {
+     currentTwoCards.push(card);
+     console.log(currentTwoCards);
+   }
+ 
+   if (currentTwoCards.length === 2) {
+     totalMoves++;
+     totalMatches++;
+     document.getElementById('total-moves').innerText = totalMoves;
+     console.log(currentTwoCards[0].id);
+     if (
+       currentTwoCards[0].children[0].src === currentTwoCards[1].children[0].src
+     ) {
+       completedPairs.push(currentTwoCards[0].id, currentTwoCards[1].id);
+       console.log(completedPairs);
+       currentTwoCards = [];
+     } else {
+       setTimeout(() => {
+         currentTwoCards[0].children[0].src = './images/blank.jpeg';
+         currentTwoCards[1].children[0].src = './images/blank.jpeg';
+         currentTwoCards = [];
+       }, 200);
+     }
+   }
+   return true;
+ }
+ 
