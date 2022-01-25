@@ -31,3 +31,12 @@
  *
  * @format
  */
+
+function test(event) {
+  var banner = document.getElementById(`${event}`).children[0];
+  console.log(banner.src);
+  if (banner.src === 'http://127.0.0.1:5500/images/blank.jpeg') {
+    console.log('true');
+    banner.src = './images/arbok.jpeg';
+  } else banner.src = 'http://127.0.0.1:5500/images/blank.jpeg';
+}

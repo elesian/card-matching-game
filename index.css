@@ -47,10 +47,12 @@ h2 {
   grid-template-columns: repeat(3, auto);
 }
 
-.grid-bottom {
+#grid-bottom-1,
+#grid-bottom-2,
+#grid-bottom-3 {
   background-color: rgba(240, 80, 6, 0.8);
   border: 5px solid rgba(0, 0, 0, 0.8);
-  padding: 10px;
+  padding: 5px;
   font-size: 20px;
   text-align: center;
   border-radius: 3px;
