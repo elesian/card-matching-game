@@ -31,9 +31,12 @@
  * @format
  */
 
+let totalMoves = 0;
+let totalMatches = 0;
 let timePassed = 0;
 let reset = false;
 let currentTwoCards = [];
+let completedPairs = [];
 let RandomiseCards = new Array(16);
 let PokemonCards = [
   'arbok.jpeg',
@@ -61,12 +64,24 @@ function clickPokemon(event) {
   const cardId = card.id;
   const child = card.children[0];
   let currentIndex = PokemonCards[gridImages[`${cardId}`]];
-  console.log(currentIndex);
+  console.log(timePassed);
 
   if (Object.keys(gridImages).length !== 0) {
     if (child.src === 'http://127.0.0.1:5500/images/blank.jpeg') {
       child.src = `./images/${currentIndex}`;
-    } else child.src = 'http://127.0.0.1:5500/images/blank.jpeg';
+    }
+
+    //do pairs match?
+    let isMatch = matchingPair(card);
+    if (isMatch && completedPairs.length === 16) {
+      const finishedTime = formatTime(timePassed);
+
+      setTimeout(() => {
+        alert(
+          `You have WON in ${totalMoves} moves and a time of ${finishedTime}`
+        );
+      }, 200);
+    }
   }
 }
 
@@ -141,4 +156,43 @@ function assignGridImages() {
   for (let i = 0; i < images.length; i++) {
     gridImages[`grid-item-${i + 1}`] = RandomiseCards[i];
   }
+}
+
+function matchingPair(card) {
+  if (completedPairs.includes(card.id)) {
+    return false;
+  }
+
+  if (currentTwoCards.length === 0) {
+    currentTwoCards.push(card);
+    console.log(currentTwoCards);
+  }
+
+  if (currentTwoCards.length === 1 && currentTwoCards[0].id !== card.id) {
+    currentTwoCards.push(card);
+    console.log(currentTwoCards);
+  }
+
+  if (currentTwoCards.length === 2) {
+    totalMoves++;
+    totalMatches++;
+    document.getElementById('total-moves').innerText = totalMoves;
+    console.log(currentTwoCards[0].id);
+    if (
+      currentTwoCards[0].children[0].src === currentTwoCards[1].children[0].src
+    ) {
+      completedPairs.push(currentTwoCards[0].id, currentTwoCards[1].id);
+      console.log(completedPairs);
+      currentTwoCards = [];
+    } else {
+      setTimeout(() => {
+        currentTwoCards[0].children[0].src =
+          'http://127.0.0.1:5500/images/blank.jpeg';
+        currentTwoCards[1].children[0].src =
+          'http://127.0.0.1:5500/images/blank.jpeg';
+        currentTwoCards = [];
+      }, 200);
+    }
+  }
+  return true;
 }
