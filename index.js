@@ -68,7 +68,7 @@ function clickPokemon(event) {
 
   if (Object.keys(gridImages).length !== 0) {
     if (child.src.includes('blank.jpeg') === true) {
-      child.src = `./images/blank.jpeg/images/${currentIndex}`;
+      child.src = `./images/${currentIndex}`;
     }
 
     //test
