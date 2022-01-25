@@ -68,7 +68,7 @@ function clickPokemon(event) {
 
   if (Object.keys(gridImages).length !== 0) {
     if (child.src.includes('blank.jpeg') === true) {
-      child.src = `memoryMatchingGame/blank.jpeg/images/${currentIndex}`;
+      child.src = `./images/blank.jpeg/images/${currentIndex}`;
     }
 
     //test
@@ -147,7 +147,7 @@ function resetCards() {
 
   for (let i = 0; i < children.length; i++) {
     console.log(children[i]);
-    children[i].src = 'memoryMatchingGame/images/blank.jpeg';
+    children[i].src = './images/blank.jpeg';
     children[i].width = 145;
     children[i].height = 145;
   }
@@ -188,10 +188,8 @@ function matchingPair(card) {
       currentTwoCards = [];
     } else {
       setTimeout(() => {
-        currentTwoCards[0].children[0].src =
-          'memoryMatchingGame/images/blank.jpeg';
-        currentTwoCards[1].children[0].src =
-          'memoryMatchingGame/images/blank.jpeg';
+        currentTwoCards[0].children[0].src = './images/blank.jpeg';
+        currentTwoCards[1].children[0].src = './images/blank.jpeg';
         currentTwoCards = [];
       }, 200);
     }
