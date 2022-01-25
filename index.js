@@ -71,6 +71,7 @@ function clickPokemon(event) {
       child.src = `./images/${currentIndex}`;
     }
 
+    //test
     //do pairs match?
     let isMatch = matchingPair(card);
     if (isMatch && completedPairs.length === 16) {
