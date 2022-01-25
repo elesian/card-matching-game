@@ -184,7 +184,7 @@ function matchingPair(card) {
       currentTwoCards = [];
     } else {
       setTimeout(() => {
-        currentTwoCards[0].children[0].src = '/asset/blank.jpeg';
+        currentTwoCards[0].children[0].src = '/assets/blank.jpeg';
         currentTwoCards[1].children[0].src = '/assets/blank.jpeg';
         currentTwoCards = [];
       }, 200);
