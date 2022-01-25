@@ -15,7 +15,6 @@
  /*
  * LAYOUT
  * -Implement layout. Grid and moves and time. Header + footnote.
- * -Start in middle of screen.
  *
  * GAME
  * -On FIRST click - start timer.
@@ -34,17 +33,47 @@
 
 let timePassed = 0;
 let reset = false;
+let currentTwoCards = [];
+let RandomiseCards = new Array(16);
+let PokemonCards = [
+  'arbok.jpeg',
+  'dragonair.jpeg',
+  'jigglypuff.jpeg',
+  'lickitung.jpeg',
+  'memowmth.jpeg',
+  'oddish.jpeg',
+  'rattata.jpeg',
+  'sandshrew.jpeg',
+  'arbok.jpeg',
+  'dragonair.jpeg',
+  'jigglypuff.jpeg',
+  'lickitung.jpeg',
+  'memowmth.jpeg',
+  'oddish.jpeg',
+  'rattata.jpeg',
+  'sandshrew.jpeg',
+];
 
-function test(event) {
-  var banner = document.getElementById(`${event}`).children[0];
-  console.log(banner.src);
-  if (banner.src === 'http://127.0.0.1:5500/images/blank.jpeg') {
+let gridImages = {};
+
+function clickPokemon(event) {
+  let cardId = document.getElementById(`${event}`).children[0];
+  console.log(cardId.src);
+  if (cardId.src === 'http://127.0.0.1:5500/images/blank.jpeg') {
     console.log('true');
-    banner.src = './images/arbok.jpeg';
-  } else banner.src = 'http://127.0.0.1:5500/images/blank.jpeg';
+    cardId.src = './images/arbok.jpeg';
+  } else cardId.src = 'http://127.0.0.1:5500/images/blank.jpeg';
 }
 
 function initialiseGame() {
+  //randomise Cards
+  RandomiseCards = RandomCards(0, 15);
+  //reset all to blank
+  resetCards();
+  //assign each grid square to a pokemon
+  assignGridImages();
+  console.log(gridImages);
+
   if (document.getElementById('reset-button').innerText === 'START GAME') {
     setTimer((reset = false));
   } else {
@@ -53,18 +82,11 @@ function initialiseGame() {
 }
 
 function formatTime(time) {
-  // The largest round integer less than or equal to the result of time divided being by 60.
   const minutes = Math.floor(time / 60);
-
-  // Seconds are the remainder of the time divided by 60 (modulus operator)
   let seconds = time % 60;
-
-  // If the value of seconds is less than 10, then display seconds with a leading zero
   if (seconds < 10) {
     seconds = `0${seconds}`;
   }
-
-  // The output in MM:SS format
   return `${minutes}:${seconds}`;
 }
 
@@ -74,7 +96,6 @@ function setTimer(reset) {
 
   if (reset === false) {
     document.getElementById('reset-button').innerHTML = 'END GAME';
-
     let interval = setInterval(() => {
       // The amount of time passed increments by one
       timePassed = timePassed + 1;
@@ -87,5 +108,33 @@ function setTimer(reset) {
     document.getElementById('reset-button').innerText = 'START GAME';
     document.getElementById('base-timer-label').innerHTML =
       formatTime(timePassed);
+  }
+}
+
+const RandomCards = (min, max) => {
+  const randomNumbers = new Set();
+  const range = max - min + 1;
+
+  while (randomNumbers.size < range) {
+    randomNumbers.add(~~(Math.random() * range));
+  }
+
+  return [...randomNumbers];
+};
+
+function resetCards() {
+  const children = document.getElementsByTagName('img');
+
+  for (let i = 0; i < children.length; i++) {
+    children[i].src = '/images/blank.jpeg';
+    children[i].width = 145;
+    children[i].height = 145;
+  }
+}
+
+function assignGridImages() {
+  const images = document.getElementsByTagName('img');
+  for (let i = 0; i < images.length; i++) {
+    gridImages[`grid-item-${i + 1}`] = RandomiseCards[i];
   }
 }
