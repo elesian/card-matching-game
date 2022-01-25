@@ -68,8 +68,8 @@ function clickPokemon(event) {
   
 
   if (Object.keys(gridImages).length !== 0) {
-    if (child.src === './images/blank.jpeg') {
-      child.src = `./images/${currentIndex}`;
+    if (child.src === 'https://elesian.github.io/memoryMatchingGame/images/blank.jpeg') {
+      child.src = `https://elesian.github.io/memoryMatchingGame/images/${currentIndex}`;
     }
 
     //test
@@ -147,7 +147,7 @@ function resetCards() {
   const children = document.getElementsByTagName('img');
 
   for (let i = 0; i < children.length; i++) {
-    children[i].src = './images/blank.jpeg';
+    children[i].src = 'https://elesian.github.io/memoryMatchingGame/images/blank.jpeg';
     children[i].width = 145;
     children[i].height = 145;
   }
@@ -188,8 +188,8 @@ function matchingPair(card) {
       currentTwoCards = [];
     } else {
       setTimeout(() => {
-        currentTwoCards[0].children[0].src = './images/blank.jpeg';
-        currentTwoCards[1].children[0].src = './images/blank.jpeg';
+        currentTwoCards[0].children[0].src = 'https://elesian.github.io/memoryMatchingGame/images/blank.jpeg';
+        currentTwoCards[1].children[0].src = 'https://elesian.github.io/memoryMatchingGame/images/blank.jpeg';
         currentTwoCards = [];
       }, 200);
     }
