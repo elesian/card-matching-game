@@ -67,7 +67,7 @@ function clickPokemon(event) {
   console.log(timePassed);
 
   if (Object.keys(gridImages).length !== 0) {
-    if (child.src === 'http://127.0.0.1:5500/images/blank.jpeg') {
+    if (child.src === './images/blank.jpeg') {
       child.src = `./images/${currentIndex}`;
     }
 
@@ -187,10 +187,8 @@ function matchingPair(card) {
       currentTwoCards = [];
     } else {
       setTimeout(() => {
-        currentTwoCards[0].children[0].src =
-          'http://127.0.0.1:5500/images/blank.jpeg';
-        currentTwoCards[1].children[0].src =
-          'http://127.0.0.1:5500/images/blank.jpeg';
+        currentTwoCards[0].children[0].src = './images/blank.jpeg';
+        currentTwoCards[1].children[0].src = './images/blank.jpeg';
         currentTwoCards = [];
       }, 200);
     }
