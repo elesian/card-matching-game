@@ -210,4 +210,5 @@ function resetGame() {
   gridImages = {};
   document.getElementById('total-moves').innerText = totalMoves;
   setTimer((reset = true));
+  resetCards();
 }
