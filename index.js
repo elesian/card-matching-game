@@ -83,6 +83,7 @@ function clickPokemon(event) {
           `You have WON in ${totalMoves} moves and a time of ${finishedTime}`
         );
         document.getElementById('reset-button').innerText === 'START GAME';
+        for (var i = 1; i < 9999; i++) window.clearInterval(i);
       }, 200);
     }
   }
@@ -117,7 +118,7 @@ function formatTime(time) {
 }
 
 function setTimer(reset) {
-  for (var i = 1; i < 99999; i++) window.clearInterval(i);
+  for (var i = 1; i < 9999; i++) window.clearInterval(i);
   timePassed = 0;
 
   if (reset === false) {
