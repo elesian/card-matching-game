@@ -31,6 +31,7 @@
  * @format
  */
 
+let endGame = false;
 let totalMoves = 0;
 let totalMatches = 0;
 let timePassed = 0;
@@ -88,20 +89,21 @@ function clickPokemon(event) {
 }
 
 function initialiseGame() {
-  totalMoves = 0;
-  currentTwoCards = [];
-  completedPairs = [];
-  //randomise Cards
-  RandomiseCards = RandomCards(0, 15);
-  //reset all to blank
-  resetCards();
-  //assign each grid square to a pokemon
-  assignGridImages();
-
   if (document.getElementById('reset-button').innerText === 'START GAME') {
-    setTimer((reset = false));
+    //randomise Cards
+    RandomiseCards = RandomCards(0, 15);
+    //reset all to blank
+    resetCards();
+    //assign each grid square to a pokemon
+    assignGridImages();
+
+    if (document.getElementById('reset-button').innerText === 'START GAME') {
+      setTimer((reset = false));
+    } else {
+      setTimer((reset = true));
+    }
   } else {
-    setTimer((reset = true));
+    resetGame();
   }
 }
 
@@ -199,4 +201,13 @@ function matchingPair(card) {
     }
   }
   return true;
+}
+
+function resetGame() {
+  totalMoves = 0;
+  currentTwoCards = [];
+  completedPairs = [];
+  gridImages = {};
+  document.getElementById('total-moves').innerText = totalMoves;
+  setTimer((reset = true));
 }
