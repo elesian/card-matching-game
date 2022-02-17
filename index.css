@@ -8,6 +8,9 @@
 body {
   background-image: url('./images/pokeballs.jpeg');
   background-color: #cccccc;
+  max-width: max-content;
+  margin-inline-end: auto;
+  display: inline-block;
 }
 
 .grid-container-1 {
@@ -62,17 +65,25 @@ h2 {
   border: 5px solid rgba(0, 0, 0, 0.8);
   padding: 5px;
   font-size: 20px;
-  text-align: center;
+  text-align: justify;
   border-radius: 3px;
 }
 
 #reset-button {
   font-size: 20px;
-  justify-content: space-around;
+  text-align: center;
+  margin-top: 0.5em;
+  margin-left: 1em;
 }
 
 article {
   display: inline-grid;
   position: relative;
   left: 30%;
+}
+
+@media screen and (min-width: 1024px) {
+  body {
+    margin-left: 50vh;
+  }
 }
